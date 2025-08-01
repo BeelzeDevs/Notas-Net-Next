@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Options;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Backend.Services;
+using Backend.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<HealthService>();
+builder.Services.AddSingleton<INotaService, NotaService>();
+builder.Services.AddSingleton<ICategoriaService, CategoriaService>();
+builder.Services.AddSingleton<INotaService, NotaService>();
 
 var app = builder.Build();
 

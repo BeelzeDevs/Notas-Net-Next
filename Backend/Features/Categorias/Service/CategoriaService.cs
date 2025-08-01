@@ -14,18 +14,22 @@ namespace Backend.Services
             _context = context;
         }
 
-        public async Task<List<Categoria>> GetAllAsync()
+        public async Task<List<CategoriaReadDTO>> GetAllAsync()
         {
-            return await _context.Categorias.ToListAsync();
+            return await _context.Categorias
+                .Select(c => new CategoriaReadDTO { Id = c.Id, Nombre = c.Nombre })
+                .ToListAsync();
         }
-        public async Task<Categoria?> GetById(int id)
+        public async Task<CategoriaReadDTO?> GetById(int id)
         {
-            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+            var categoria = await _context.Categorias
+            .Select(c=> new CategoriaReadDTO {Id = c.Id, Nombre = c.Nombre})
+            .FirstOrDefaultAsync(c => c.Id == id);
             if (categoria is null) return null;
 
             return categoria;
         }
-        public async Task<Categoria> CreateAsync(CategoriaDTO dto)
+        public async Task<CategoriaReadDTO> CreateAsync(CategoriaDTO dto)
         {
             var categoria = new Categoria
             {
@@ -34,7 +38,7 @@ namespace Backend.Services
 
             _context.Categorias.Add(categoria);
             await _context.SaveChangesAsync();
-            return await GetById(categoria.Id) ?? throw new Exception("Error al crear Categoria");
+            return new CategoriaReadDTO { Id = categoria.Id, Nombre = categoria.Nombre };
 
         }
         public async Task<bool> UpdateAsync(int id, CategoriaDTO dto)
@@ -55,7 +59,7 @@ namespace Backend.Services
 
             if (categoria is null) return false;
             _context.NotaCategorias.RemoveRange(categoria.NotaCategorias);
-            _context.Categorias.RemoveRange(categoria);
+            _context.Categorias.Remove(categoria);
             await _context.SaveChangesAsync();
             return true;
 
