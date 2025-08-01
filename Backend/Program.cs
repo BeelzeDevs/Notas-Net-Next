@@ -20,6 +20,17 @@ builder.Services.AddScoped<INotaService, NotaService>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<INotaCategoriaService, NotaCategoriaService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCorsPolicy", builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:3000") // Puerto fijo del front-end
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 
@@ -28,6 +39,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Usar CORS
+app.UseCors("DevCorsPolicy");
 
 app.UseHttpsRedirection();
 app.MapControllers();
