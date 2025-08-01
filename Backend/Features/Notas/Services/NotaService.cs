@@ -53,7 +53,7 @@ namespace Backend.Services
                 Contenido = dto.Contenido,
                 Archivada = dto.Archivada,
                 FechaCreacion = DateTime.UtcNow,
-                FechaModificacion = DateTime.UtcNow
+                FechaModificacion = null
             };
 
             _context.Notas.Add(nota);

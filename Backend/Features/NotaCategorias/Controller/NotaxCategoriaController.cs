@@ -26,7 +26,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> Create(int NotaId, int CategoriaId)
         {
             NotaCategoriaReadDTO? notacategoria = await _service.CreateAsync(NotaId, CategoriaId);
-            return notacategoria is not null ? CreatedAtAction(nameof(GetAllCategoriasByNotaId), new{id=notacategoria.NotaId}, notacategoria) : NotFound("Already exist");
+            return notacategoria is not null ? Ok(notacategoria) : NotFound("Already exist");
         }
 
         [HttpDelete("{NotaId}/{CategoriaId}")]

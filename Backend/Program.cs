@@ -12,11 +12,13 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddControllers();
+
 builder.Services.AddScoped<HealthService>();
-builder.Services.AddSingleton<INotaService, NotaService>();
-builder.Services.AddSingleton<ICategoriaService, CategoriaService>();
-builder.Services.AddSingleton<INotaService, NotaService>();
+builder.Services.AddScoped<INotaService, NotaService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<INotaCategoriaService, NotaCategoriaService>();
 
 var app = builder.Build();
 
@@ -34,7 +36,7 @@ app.MapGet("/healthDb", async (HealthService healthService) =>
 {
     bool canConnect = await healthService.CanConnectAsync();
     return canConnect
-        ? Results.Ok(new { status = "ok", message = "Connection Successful" })
+        ? Results.Ok(new { status = "ok", message = "Successful connection" })
         : Results.StatusCode(500);
 });
 
