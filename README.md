@@ -7,6 +7,9 @@ This project is a full-stack web application that allows you to create, edit, de
 ## ⛔ IMPORTANT
 To use de script start.sh we need:
 - 1.Install PostgreSQL : Download and install it from https://www.postgresql.org/download
+    - password: admin
+    - port: 5432
+    - unchecked Stack Builder 
 - 2.Locate bin folder path
     example : C:\Program Files\PostgreSQL\17\bin
 - 3.Add psql to your system PATH
