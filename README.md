@@ -60,36 +60,36 @@ Simulated login credentials:
     - `Microsoft.AspNetCore.Mvc` – Controllers and routing
 
 ### ⛓ Project Structure
-.␣␣
-├── database/␣␣
-│   └── bbdd.sql # PostgreSQL database creation script␣␣
-├── backend/␣␣
-│   ├── BackendDbContext.cs␣␣
-│   ├── Data/␣␣
-│   │   └── Service/␣␣
-│   └── Features/␣␣
-│       ├── Categorias/␣␣
-│       │   ├── Controller/␣␣
-│       │   ├── Dtos/␣␣
-│       │   ├── Models/␣␣
-│       │   └── Service/␣␣
-│       ├── NotaCategorias/␣␣
-│       │   ├── Controller/␣␣
-│       │   ├── Dtos/␣␣
-│       │   ├── Models/␣␣
-│       │   └── Service/␣␣
-│       └── Notas/␣␣
-│           ├── Controller/␣␣
-│           ├── Dtos/␣␣
-│           ├── Models/␣␣
-│           └── Service/␣␣
-├── frontend/␣␣
-│   ├── app/␣␣
-│   ├── components/␣␣
-│   ├── services/␣␣
-│   ├── types/␣␣
-│   └── utils/␣␣
-└── start.sh # Startup script for the entire project␣␣
+.  
+├── database/  
+│   └── bbdd.sql # PostgreSQL database creation script  
+├── backend/  
+│   ├── BackendDbContext.cs  
+│   ├── Data/  
+│   │   └── Service/  
+│   └── Features/  
+│       ├── Categorias/  
+│       │   ├── Controller/  
+│       │   ├── Dtos/  
+│       │   ├── Models/  
+│       │   └── Service/  
+│       ├── NotaCategorias/  
+│       │   ├── Controller/  
+│       │   ├── Dtos/  
+│       │   ├── Models/  
+│       │   └── Service/  
+│       └── Notas/  
+│           ├── Controller/  
+│           ├── Dtos/  
+│           ├── Models/  
+│           └── Service/  
+├── frontend/  
+│   ├── app/  
+│   ├── components/  
+│   ├── services/  
+│   ├── types/  
+│   └── utils/  
+└── start.sh # Startup script for the entire project  
 
 ## Features Implemented
 ### Phase 1 (mandatory):
@@ -114,8 +114,8 @@ This will run:
 - Frontend in http://localhost:3000
 
 ### 🌐 important URLs 
-Frontend: http://localhost:3000 ␣␣
-API backend swagger to test endpoints: http://localhost:5000/swagger/index.html ␣␣
-API backend: http://localhost:5000/api/ ␣␣
+Frontend: http://localhost:3000  
+API backend swagger to test endpoints: http://localhost:5000/swagger/index.html  
+API backend: http://localhost:5000/api/  
 
 
