@@ -48,6 +48,7 @@ Simulated login credentials:
     - `next`, `react`, `react-dom` – base framework
     - `tailwindcss` – utility-first CSS
 
+
 ### 🛠️ Backend
 
 - **Framework**: ASP.NET Core 8
@@ -58,6 +59,12 @@ Simulated login credentials:
     - `Npgsql.EntityFrameworkCore.PostgreSQL` – PostgreSQL provider for EF Core
     - `Microsoft.EntityFrameworkCore.Design` – EF migrations & scaffolding
     - `Microsoft.AspNetCore.Mvc` – Controllers and routing
+
+### Requisitos
+
+- **.NET 8 SDK (Software Development Kit)**: .NET SDK v8.0.400 → [Descargar](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- **Node.js**: v20.19.3 
+- **npm**: v10.8.2
 
 ### ⛓ Project Structure
 ```bash
