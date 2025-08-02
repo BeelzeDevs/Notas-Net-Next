@@ -6,19 +6,21 @@ DB_USER="postgres"
 DB_PASSWORD="admin"
 DB_PORT=5432
 DB_HOST="localhost"
-SQL_FILE="./database/bbdd.sql"
+
+SCHEMA_FILE="./database/schema.sql"
+SEED_FILE="./database/seed.sql"
 
 # Rutas relativas
 BACKEND_DIR="./backend"
 FRONTEND_DIR="./frontend"
 
-echo "ï¿½ï¿½ Verificando existencia de la base de datos..."
-
 export PGPASSWORD=$DB_PASSWORD
 
-# Verificar si la base ya existe
-DB_EXIST=$(psql -U $DB_USER -h $DB_HOST -p $DB_PORT -tAc "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'")
+echo "í·¨ Eliminando base de datos '$DB_NAME' si existe..."
+dropdb -U "$DB_USER" -h "$DB_HOST" -p "$DB_PORT" "$DB_NAME" 2>/dev/null && echo "âœ… Base de datos eliminada." || echo "âš ï¸  No se pudo eliminar (puede que no exista)."
 
+echo "í´Ž Verificando existencia de la base de datos..."
+DB_EXIST=$(psql -U $DB_USER -h $DB_HOST -p $DB_PORT -tAc "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'")
 if [ "$DB_EXIST" == "1" ]; then
   echo "âœ… La base de datos '$DB_NAME' ya existe."
 else
@@ -30,8 +32,60 @@ else
   fi
 fi
 
-echo "í³¥ Importando datos desde '$SQL_FILE'..."
-psql -U $DB_USER -h $DB_HOST -p $DB_PORT -d $DB_NAME -f $SQL_FILE
+echo "í³¦ Verificando estructura (schema)..."
+TABLE_EXISTS=$(psql -U $DB_USER -h $DB_HOST -p $DB_PORT -d $DB_NAME -tAc "SELECT to_regclass('public.notas');")
+
+if [ "$TABLE_EXISTS" == "notas" ]; then
+  echo "âœ… Las tablas ya estÃ¡n creadas."
+else
+  echo "í·± Creando estructura de base de datos desde '$SCHEMA_FILE'..."
+  psql -U $DB_USER -h $DB_HOST -p $DB_PORT -d $DB_NAME -f "$SCHEMA_FILE"
+fi
+
+echo "í¼± Verificando si hay datos en 'notas'..."
+HAS_DATA=$(psql -U $DB_USER -h $DB_HOST -p $DB_PORT -d $DB_NAME -tAc "SELECT COUNT(*) FROM notas;" 2>/dev/null)
+
+if [[ "$HAS_DATA" =~ ^[0-9]+$ && "$HAS_DATA" -gt 0 ]]; then
+  echo "âš ï¸  La tabla 'notas' ya contiene datos. No se ejecutarÃ¡ el seed."
+else
+  echo "í³¤ Insertando datos iniciales desde '$SEED_FILE'..."
+  psql -U $DB_USER -h $DB_HOST -p $DB_PORT -d $DB_NAME -f "$SEED_FILE"
+fi
+
+# Liberar puerto 5000 - Linux/macOS
+echo "í·¹ Liberando puerto 5000 (Unix)..."
+if command -v lsof &> /dev/null; then
+  PID5000=$(lsof -t -i:5000)
+  if [ -n "$PID5000" ]; then
+    kill -9 "$PID5000"
+    echo "  í»‘ Proceso en puerto 5000 detenido (PID $PID5000)"
+  fi
+else
+  echo "  âš ï¸ 'lsof' no estÃ¡ instalado. Saltando limpieza Unix."
+fi
+
+# Liberar puerto 5000 - Windows
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+  echo "í·¹ Liberando puerto 5000 (Windows)..."
+  for pid in $(netstat -aon | grep ':5000' | awk '{print $5}' | uniq); do
+    taskkill //PID $pid //F 2> /dev/null
+    echo "  í»‘ Proceso en puerto 5000 detenido (PID $pid)"
+  done
+fi
+
+
+echo "í·¹ Liberando puerto 3000 si estÃ¡ ocupado..." 
+PID3000=$(lsof -t -i:3000)
+if [ -n "$PID3000" ]; then 
+  kill -9 "$PID3000" 
+  echo "  í»‘ Proceso en puerto 3000 detenido (PID $PID3000)" 
+fi
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+  echo "í·¹ Liberando puerto 3000 en Windows..."
+  for pid in $(netstat -aon | grep :3000 | awk '{print $5}' | uniq); do
+    taskkill //PID $pid //F 2> /dev/null
+  done
+fi
 
 echo "íº€ Iniciando backend..."
 cd $BACKEND_DIR
