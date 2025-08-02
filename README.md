@@ -6,21 +6,21 @@ This project is a full-stack web application that allows you to create, edit, de
 
 ## ⛔ IMPORTANT
 To use de script start.sh we need:
-- 1. Install PostgreSQL : Download and install it from https://www.postgresql.org/download
-- 2. Locate bin folder path
+- 1.Install PostgreSQL : Download and install it from https://www.postgresql.org/download
+- 2.Locate bin folder path
     example : C:\Program Files\PostgreSQL\17\bin
-- 3. Add psql to your system PATH
-    -> Open the Start Menu and search: Edit the system environment variables
-    -> Click on Environment Variables
-    -> Under System variables, select PATH and click Edit , Click New, and paste the path to the bin folder. 
-    -> Confirm all dialogs with OK.
-    -> Close Visual Studio or any terminal if it was open.
-- 4. Verify in Git Bash
+- 3.Add psql to your system PATH
+    - -> Open the Start Menu and search: Edit the system environment variables
+    - -> Click on Environment Variables
+    - -> Under System variables, select PATH and click Edit , Click New, and paste the path to the bin folder. 
+    - -> Confirm all dialogs with OK.
+    - -> Close Visual Studio or any terminal if it was open.
+- 4.Verify in Git Bash
     ```bash
     psql --version 
 If it shows a version number, it’s correctly set. If not, try restarting your PC or repeat the steps.
 
-- 5. Run the project -> In the root directory of the project, Git Bash:
+- 5.Run the project -> In the root directory of the project, Git Bash:
     ```bash
     chmod +x start.sh
     ./start.sh
