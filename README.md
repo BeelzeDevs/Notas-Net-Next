@@ -60,36 +60,38 @@ Simulated login credentials:
     - `Microsoft.AspNetCore.Mvc` – Controllers and routing
 
 ### ⛓ Project Structure
-.  
-├── database/  
-│   └── bbdd.sql # PostgreSQL database creation script  
-├── backend/  
-│   ├── BackendDbContext.cs  
-│   ├── Data/  
-│   │   └── Service/  
-│   └── Features/  
-│       ├── Categorias/  
-│       │   ├── Controller/  
-│       │   ├── Dtos/  
-│       │   ├── Models/  
-│       │   └── Service/  
-│       ├── NotaCategorias/  
-│       │   ├── Controller/  
-│       │   ├── Dtos/  
-│       │   ├── Models/  
-│       │   └── Service/  
-│       └── Notas/  
-│           ├── Controller/  
-│           ├── Dtos/  
-│           ├── Models/  
-│           └── Service/  
-├── frontend/  
-│   ├── app/  
-│   ├── components/  
-│   ├── services/  
-│   ├── types/  
-│   └── utils/  
-└── start.sh # Startup script for the entire project  
+```bash
+   .  
+    ├── database/  
+    │   └── bbdd.sql # PostgreSQL database creation script  
+    ├── backend/  
+    │   ├── BackendDbContext.cs  
+    │   ├── Data/  
+    │   │   └── Service/  
+    │   └── Features/  
+    │       ├── Categorias/  
+    │       │   ├── Controller/  
+    │       │   ├── Dtos/  
+    │       │   ├── Models/  
+    │       │   └── Service/  
+    │       ├── NotaCategorias/  
+    │       │   ├── Controller/  
+    │       │   ├── Dtos/  
+    │       │   ├── Models/  
+    │       │   └── Service/  
+    │       └── Notas/  
+    │           ├── Controller/  
+    │           ├── Dtos/  
+    │           ├── Models/  
+    │           └── Service/  
+    ├── frontend/  
+    │   ├── app/  
+    │   ├── components/  
+    │   ├── services/  
+    │   ├── types/  
+    │   └── utils/  
+    └── start.sh # Startup script for the entire project  
+```
 
 ## Features Implemented
 ### Phase 1 (mandatory):
