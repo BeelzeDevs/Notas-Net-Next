@@ -44,7 +44,7 @@ const CreateNota = ({onNotaCreada} : {onNotaCreada: ()=> void}) => {
       <div className="flex justify-center my-4">
         <button
           onClick={handleCreateNote}
-          className="bg-cyan-600 text-white px-4 py-2 rounded-lg shadow hover:bg-cyan-700 transition"
+          className="bg-cyan-600 text-white px-4 py-2 rounded-lg shadow hover:bg-cyan-700 transition pointer"
         >
           Crear Nota
         </button>
@@ -91,14 +91,14 @@ const CreateNota = ({onNotaCreada} : {onNotaCreada: ()=> void}) => {
             <div className="flex justify-end gap-4 mt-6">
               <button
                 type="submit"
-                className="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 transition"
+                className="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 transition pointer"
               >
                 Crear
               </button>
               <button
                 type="button"
                 onClick={handleCreateNote}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition pointer"
               >
                 Cancelar
               </button>
@@ -107,7 +107,7 @@ const CreateNota = ({onNotaCreada} : {onNotaCreada: ()=> void}) => {
             <button
               type="button"
               onClick={handleCreateNote}
-              className="absolute top-2 right-2 text-white text-xl hover:text-red-400"
+              className="absolute top-2 right-2 text-white text-xl hover:text-red-400 pointer"
             >
               ✖
             </button>

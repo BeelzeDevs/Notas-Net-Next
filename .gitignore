@@ -4,3 +4,4 @@
 **/node_modules
 **/[b-B]in
 **/[o-O]bj
+**/.next/

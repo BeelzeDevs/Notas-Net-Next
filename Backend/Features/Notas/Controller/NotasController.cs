@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Services;
 using Backend.DTOs;
+using Backend.Models;
 
 namespace Backend.Controllers
 {
@@ -20,7 +21,18 @@ namespace Backend.Controllers
             var notas = await _service.GetAllAsync();
             return Ok(notas);
         }
-
+        [HttpGet("archivadas/categorias/{id}")]
+        public async Task<IActionResult> GetByCategoriaIdArchived(int id)
+        {
+            var notas = await _service.GetByCategoriaIdArchivadas(id);
+            return Ok(notas);
+        }
+        [HttpGet("no-archivadas/categorias/{id}")]
+        public async Task<IActionResult> GetByCategoriaIdUnarchived(int id)
+        {
+            var notas = await _service.GetByCategoriaIdNoArchivadas(id);
+            return Ok(notas);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

@@ -6,7 +6,7 @@ using Backend.DTOs;
 namespace Backend.Controllers
 {
     [ApiController]
-    [Route("/[controller]")]
+    [Route("api/[controller]")]
     public class NotaxCategoriaController : ControllerBase
     {
         private readonly INotaCategoriaService _service;

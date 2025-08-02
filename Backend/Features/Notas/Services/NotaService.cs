@@ -28,6 +28,40 @@ namespace Backend.Services
             })
             .ToListAsync();
         }
+        public async Task<List<NotaReadDTO>> GetByCategoriaIdArchivadas(int categoriaId)
+        {
+            return await _context.NotaCategorias
+            .Include(nc => nc.Nota)
+            .Include(nc => nc.Categoria)
+            .Where(nc => nc.CategoriaId == categoriaId && nc.Nota.Archivada == true)
+            .Select(nc=> new NotaReadDTO
+            {
+                Id = nc.NotaId,
+                Titulo = nc.Nota.Titulo,
+                Contenido = nc.Nota.Contenido,
+                Archivada = nc.Nota.Archivada,
+                FechaCreacion = nc.Nota.FechaCreacion,
+                FechaModificacion = nc.Nota.FechaModificacion
+            })
+            .ToListAsync();
+        }
+        public async Task<List<NotaReadDTO>> GetByCategoriaIdNoArchivadas(int categoriaId)
+        {
+            return await _context.NotaCategorias
+            .Include(nc => nc.Nota)
+            .Include(nc => nc.Categoria)
+            .Where(nc => nc.CategoriaId == categoriaId && nc.Nota.Archivada == false)
+            .Select(nc=> new NotaReadDTO
+            {
+                Id = nc.NotaId,
+                Titulo = nc.Nota.Titulo,
+                Contenido = nc.Nota.Contenido,
+                Archivada = nc.Nota.Archivada,
+                FechaCreacion = nc.Nota.FechaCreacion,
+                FechaModificacion = nc.Nota.FechaModificacion
+            })
+            .ToListAsync();
+        }
         public async Task<NotaReadDTO?> GetById(int id)
         {
             var nota = await _context.Notas

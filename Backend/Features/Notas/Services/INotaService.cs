@@ -6,6 +6,8 @@ namespace Backend.Services
     public interface INotaService
     {
         Task<List<NotaReadDTO>> GetAllAsync();
+        Task<List<NotaReadDTO>> GetByCategoriaIdArchivadas(int categoriaId);
+        Task<List<NotaReadDTO>> GetByCategoriaIdNoArchivadas(int categoriaId);
         Task<NotaReadDTO?> GetById(int id);
         Task<NotaReadDTO> CreateAsync(NotaDTO dto);
         Task<bool> UpdateAsync(int id, NotaDTO dto);
