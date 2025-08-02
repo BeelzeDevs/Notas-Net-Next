@@ -1,3 +1,4 @@
+
 CREATE TABLE Notas (
     Id SERIAL PRIMARY KEY,
     Titulo VARCHAR(200) NOT NULL,
