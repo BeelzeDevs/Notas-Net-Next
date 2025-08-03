@@ -4,7 +4,7 @@ import { createNotaxCategoria, fetchCategoriasByIdNotas } from "@/Services/notes
 import { CategoriaRead } from "@/types/CategoriaRead";
 import { useEffect, useState } from "react";
 
-const ModalCategoria = ({NotaId, refetchTrigger, setRefetchTrigger}: {NotaId:number, refetchTrigger: boolean, setRefetchTrigger: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const ModalCategoria = ({NotaId, refetchTrigger} : {NotaId:number , refetchTrigger: ()=> void}) => {
     const [categorias, setCategorias] = useState<CategoriaRead[]>([]);
     const [errorCategorias, setErrorCategorias] = useState(null);
 
@@ -22,8 +22,7 @@ const ModalCategoria = ({NotaId, refetchTrigger, setRefetchTrigger}: {NotaId:num
         fetchCategorias()
         .then(setCategorias)
         .catch(setErrorCategorias)
-
-    },[NotaId,refetchTrigger])
+    },[NotaId])
     
     const handleModalCategoria = () =>{
         setIsAddingCategoria(false);
@@ -31,7 +30,7 @@ const ModalCategoria = ({NotaId, refetchTrigger, setRefetchTrigger}: {NotaId:num
 
     const handleAddCategory = (categoriaId:number) =>{
         createNotaxCategoria(NotaId,categoriaId)
-        setRefetchTrigger((prev)=> !prev);
+        refetchTrigger();
     }
 
     const existentes = categoriasAlreadyAdded.map((item)=> item.id);

@@ -3,7 +3,7 @@ import { deleteNotaxCategoria, fetchCategoriasByIdNotas } from "@/Services/notes
 import { useEffect, useState } from "react";
 import ModalCategoria from "./ModalCategoria";
 
-const CategoriaNota = ({ notaId, refetchTrigger, setRefetchTrigger }: { notaId:number, refetchTrigger: boolean, setRefetchTrigger: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const CategoriaNota = ({notaId, refetchTrigger} : {notaId:number , refetchTrigger: ()=> void}) => {
     const [categorias, setCategorias] = useState<CategoriaRead[]>([]);
     const [error, setError] = useState(null);
 
@@ -14,7 +14,7 @@ const CategoriaNota = ({ notaId, refetchTrigger, setRefetchTrigger }: { notaId:n
         .then(setCategorias)
         .catch(setError)
     }
-    ,[notaId,refetchTrigger]);
+    ,[notaId]);
     
     const addCategoryModalHandle = () =>{
         setModalAdd((prev)=> !prev);
@@ -22,7 +22,7 @@ const CategoriaNota = ({ notaId, refetchTrigger, setRefetchTrigger }: { notaId:n
 
     const handleDeleteCategory = (categoriaId:number) =>{
         deleteNotaxCategoria(notaId,categoriaId);
-        setRefetchTrigger((prev)=> !prev);
+        refetchTrigger();
     }
     
     return ( 
@@ -51,7 +51,7 @@ const CategoriaNota = ({ notaId, refetchTrigger, setRefetchTrigger }: { notaId:n
 
             }
             {modalAdd && 
-            <ModalCategoria NotaId={notaId} refetchTrigger={refetchTrigger} setRefetchTrigger={setRefetchTrigger}/>
+            <ModalCategoria NotaId={notaId} refetchTrigger={refetchTrigger}/>
             }
         </div>
     );

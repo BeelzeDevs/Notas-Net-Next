@@ -6,7 +6,7 @@ import CategoriaNota from "./CategoriaNota";
 import { CategoriaRead } from "@/types/CategoriaRead";
 
 
-const NotasList = ({ refetchTrigger, setRefetchTrigger }: { refetchTrigger: boolean, setRefetchTrigger: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const NotasList = ({refetchNotas, refetchTrigger} : {refetchNotas: boolean, refetchTrigger: ()=> void}) => {
   const [notas, setNotas] = useState<NotaRead[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorNotas, setErrorNotas] = useState<Error | null>(null);
@@ -66,7 +66,7 @@ const NotasList = ({ refetchTrigger, setRefetchTrigger }: { refetchTrigger: bool
 
   const handleDeleteNota = (notaId:number)=>{
     eliminarNota(notaId)
-      .then(() => setRefetchTrigger(prev=> !prev))
+      .then(() => refetchTrigger())
       .catch((err) => setErrorDelete(err));
     
   }
@@ -80,7 +80,7 @@ const NotasList = ({ refetchTrigger, setRefetchTrigger }: { refetchTrigger: bool
     modificarNota(notaId,Nota)
     .then(()=>{
       setEditandoId(null)
-      setRefetchTrigger((prev)=> !prev)
+      refetchTrigger()
     })
     .catch((err)=> setErrorUpdate(err))
 
@@ -89,7 +89,7 @@ const NotasList = ({ refetchTrigger, setRefetchTrigger }: { refetchTrigger: bool
   const handleFileNota = (notaId : number) =>{
     toogleArchivadoNota(notaId)
     .then(()=>{
-      setRefetchTrigger((prev)=> !prev)
+      refetchTrigger();
     })
     .catch(setErrorArchivando)
   }
@@ -189,7 +189,7 @@ const NotasList = ({ refetchTrigger, setRefetchTrigger }: { refetchTrigger: bool
             <p className="flex text-slate-500 py-2">{nota.contenido}</p>
           )}
           
-          <CategoriaNota notaId={Number(nota.id)} refetchTrigger={refetchTrigger} setRefetchTrigger={setRefetchTrigger} />
+          <CategoriaNota notaId={Number(nota.id)} refetchTrigger={refetchTrigger} />
           
           <div className="flex justify-between pt-2">
             <small className="text-gray-600">Created: {new Date(nota.fechaCreacion).toLocaleDateString()}</small>

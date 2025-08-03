@@ -6,17 +6,20 @@ import CreateNota from "./createNota";
 
 
 const Notas = () => {
-    const [refetchNotes,setRefetchNotes] = useState(false);
+    const [refetchNotas,setRefetchNotas] = useState(false);
     
 
     const handleNotaCreada = () => {
-        setRefetchNotes(!refetchNotes);
+        setRefetchNotas(!refetchNotas);
+    };
+    const triggerRefreshNotas = () => {
+        setRefetchNotas(!refetchNotas);
     };
     
     return (
         <>
             <CreateNota onNotaCreada={handleNotaCreada}/>
-            <NotasList refetchTrigger={refetchNotes} setRefetchTrigger={setRefetchNotes} />
+            <NotasList refetchTrigger={triggerRefreshNotas} refetchNotas= {refetchNotas}/>
         </>
     );
 };
