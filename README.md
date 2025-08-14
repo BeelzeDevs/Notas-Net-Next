@@ -62,7 +62,7 @@ Simulated login credentials:
 
 ### Requirements
 
-- **.NET 8 SDK (Software Development Kit)**: .NET SDK v8.0.400 → [Descargar](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- **.NET 8 SDK (Software Development Kit)**: .NET SDK v8.0.400 → [Download](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - **Node.js**: v20.19.3 
 - **npm**: v10.8.2
 
