@@ -20,8 +20,8 @@ const CategoriaNota = ({notaId, refetchTrigger} : {notaId:number , refetchTrigge
         setModalAdd((prev)=> !prev);
     }
 
-    const handleDeleteCategory = (categoriaId:number) =>{
-        deleteNotaxCategoria(notaId,categoriaId);
+    const handleDeleteCategory = async (categoriaId:number) =>{
+        await deleteNotaxCategoria(notaId,categoriaId);
         refetchTrigger();
     }
     

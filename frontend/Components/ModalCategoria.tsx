@@ -28,8 +28,8 @@ const ModalCategoria = ({NotaId, refetchTrigger} : {NotaId:number , refetchTrigg
         setIsAddingCategoria(false);
     }
 
-    const handleAddCategory = (categoriaId:number) =>{
-        createNotaxCategoria(NotaId,categoriaId)
+    const handleAddCategory = async (categoriaId:number) =>{
+        await createNotaxCategoria(NotaId,categoriaId);
         refetchTrigger();
     }
 

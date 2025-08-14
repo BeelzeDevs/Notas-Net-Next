@@ -6,7 +6,7 @@ import CategoriaNota from "./CategoriaNota";
 import { CategoriaRead } from "@/types/CategoriaRead";
 
 
-const NotasList = ({refetchNotas, refetchTrigger} : {refetchNotas: boolean, refetchTrigger: ()=> void}) => {
+const NotasList = ({refetchNotas, refetchTrigger} : {refetchNotas: number, refetchTrigger: ()=> void}) => {
   const [notas, setNotas] = useState<NotaRead[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorNotas, setErrorNotas] = useState<Error | null>(null);
@@ -60,7 +60,7 @@ const NotasList = ({refetchNotas, refetchTrigger} : {refetchNotas: boolean, refe
 
     fetchNotas();
 
-  }, [refetchTrigger, showArchived, filterCategoria]);
+  }, [refetchNotas, showArchived, filterCategoria]);
 
   
 

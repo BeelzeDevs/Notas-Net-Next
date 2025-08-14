@@ -33,7 +33,13 @@ namespace Backend.Controllers
         public async Task<IActionResult> Delete(int NotaId, int CategoriaId)
         {
             var deleted = await _service.DeleteAsync(NotaId, CategoriaId);
-            return deleted ? Ok($"Category deleted from {NotaId}") : NotFound($"Category Category id:{CategoriaId} not found in Notaid : {NotaId}");
+            return deleted ? Ok($"Category deleted from {NotaId}") : NotFound(new
+            {
+                message = $"Category id:{CategoriaId} not found in Nota id:{NotaId}",
+                notaId = NotaId,
+                categoriaId = CategoriaId,
+                errorCode = "CATEGORY_NOT_FOUND"
+            });
         }
     }
 }

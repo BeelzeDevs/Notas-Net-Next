@@ -1,19 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NotasList from "./NotaList";
 import CreateNota from "./createNota";
 
 
 const Notas = () => {
-    const [refetchNotas,setRefetchNotas] = useState(false);
-    
-
+    const [refetchNotas,setRefetchNotas] = useState(0);
+  
     const handleNotaCreada = () => {
-        setRefetchNotas(!refetchNotas);
+        setRefetchNotas((prev)=> prev+1);
     };
     const triggerRefreshNotas = () => {
-        setRefetchNotas(!refetchNotas);
+        setRefetchNotas((prev)=> prev+1);
     };
     
     return (

@@ -19,6 +19,9 @@ export async function deleteNotaxCategoria(idNota:number,idCategoria:number){
     method:"DELETE",
     headers: {"Content-Type": "application/json"},
   });
-  if (!response.ok) throw new Error("Error deleting Category of Note");
+  if (!response.ok) {
+    const backendMessage = await response.text();
+    throw new Error(backendMessage);
+  }
   return;
 }
