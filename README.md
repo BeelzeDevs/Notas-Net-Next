@@ -60,7 +60,7 @@ Simulated login credentials:
     - `Microsoft.EntityFrameworkCore.Design` – EF migrations & scaffolding
     - `Microsoft.AspNetCore.Mvc` – Controllers and routing
 
-### Requisitos
+### Requirements
 
 - **.NET 8 SDK (Software Development Kit)**: .NET SDK v8.0.400 → [Descargar](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - **Node.js**: v20.19.3 
@@ -70,7 +70,9 @@ Simulated login credentials:
 ```bash
    .  
     ├── database/  
-    │   └── bbdd.sql # PostgreSQL database creation script  
+    │   ├── bbdd.sql # PostgreSQL database script 
+    │   ├── schema.sql  # PostgreSQL schema - database creation script 
+    │   └── seed.sql # PostgreSQL seed - data insert script 
     ├── backend/  
     │   ├── BackendDbContext.cs  
     │   ├── Data/  
