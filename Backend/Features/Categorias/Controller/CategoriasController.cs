@@ -6,10 +6,10 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoriasController : ControllerBase
+    public class CategoryController : ControllerBase
     {
-        private readonly ICategoriaService _service;
-        public CategoriasController(ICategoriaService service)
+        private readonly ICategoryService _service;
+        public CategoryController(ICategoryService service)
         {
             _service = service;
         }
@@ -17,8 +17,8 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var categorias = await _service.GetAllAsync();
-            return Ok(categorias);
+            var categories = await _service.GetAllAsync();
+            return Ok(categories);
         }
 
         [HttpGet("{id}")]
@@ -29,14 +29,14 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CategoriaDTO dto)
+        public async Task<IActionResult> Create([FromBody] CategoryDTO dto)
         {
             var created = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] CategoriaDTO dto)
+        public async Task<IActionResult> Update(int id, [FromBody] CategoryDTO dto)
         {
             var updated = await _service.UpdateAsync(id, dto);
             return updated ? Ok("Category update successful") : NotFound($"Category with id {id} not found");

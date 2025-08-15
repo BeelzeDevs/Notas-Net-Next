@@ -1,6 +1,6 @@
 -- Insert de las tablas
 
-INSERT INTO Categorias (Nombre) VALUES
+INSERT INTO Categories (Name) VALUES
 ('Work'),
 ('Study'),
 ('Personal'),
@@ -9,7 +9,7 @@ INSERT INTO Categorias (Nombre) VALUES
 
 
 
-INSERT INTO Notas (Titulo, Contenido, Archivada)
+INSERT INTO Notes (Title, Content, Filed)
 VALUES 
 ('Comprar insumos', 'Comprar cafe, azucar y leche para la oficina.', FALSE),
 ('Revisar proyecto', 'Revisar el proyecto de challenge hirelens', FALSE),
@@ -23,7 +23,7 @@ VALUES
 ('Archived bug fix task', 'Task completed last month.', TRUE);
 
 
-INSERT INTO NotaCategorias (NotaId, CategoriaId) 
+INSERT INTO NotexCategory (NoteId, CategoryId) 
 VALUES (1, 1),
 (4, 4),
 (2, 1),

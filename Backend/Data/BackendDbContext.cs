@@ -8,16 +8,16 @@ namespace Backend.Data
         {
 
         }
-        public DbSet<Nota> Notas { get; set; } = null!;
-        public DbSet<Categoria> Categorias { get; set; } = null!;
-        public DbSet<NotaCategoria> NotaCategorias { get; set; } = null!;
+        public DbSet<Note> Notes { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<NotexCategory> NotexCategory { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<NotaCategoria>()
-            .HasKey(nxc => new { nxc.NotaId, nxc.CategoriaId });
+            modelBuilder.Entity<NotexCategory>()
+            .HasKey(nxc => new { nxc.NoteId, nxc.CategoryId });
 
             // Corrección en postgres por ser case-sensitive 
             // Otra solución modificar el script y utilizar "Nota" , "Categoria", "Id". comillas.

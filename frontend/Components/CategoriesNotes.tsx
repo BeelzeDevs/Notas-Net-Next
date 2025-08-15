@@ -1,27 +1,27 @@
-import { CategoriaRead } from "@/types/CategoriaRead";
-import { deleteNotaxCategoria, fetchCategoriasByIdNotas } from "@/Services/notesxCategoryApi";
+import { CategoryRead } from "@/types/CategoryRead";
+import { deleteNotexCategoria, fetchCategoriesByNoteId } from "@/Services/NotexCategoriesApi";
 import { useEffect, useState } from "react";
-import ModalCategoria from "./ModalCategoria";
+import ModalCategory from "./ModalCategory";
 
-const CategoriaNota = ({notaId, refetchTrigger} : {notaId:number , refetchTrigger: ()=> void}) => {
-    const [categorias, setCategorias] = useState<CategoriaRead[]>([]);
-    const [error, setError] = useState(null);
+const CategoriesNotes = ({noteId, refetchTrigger} : {noteId:number , refetchTrigger: ()=> void}) => {
+    const [categories, setCategories] = useState<CategoryRead[]>([]);
+    const [error, setError] = useState<Error | null>(null);
 
     const [modalAdd,setModalAdd] = useState(false);
 
     useEffect(()=>{
-        fetchCategoriasByIdNotas(notaId)
-        .then(setCategorias)
+        fetchCategoriesByNoteId(noteId)
+        .then(setCategories)
         .catch(setError)
     }
-    ,[notaId]);
+    ,[noteId]);
     
     const addCategoryModalHandle = () =>{
         setModalAdd((prev)=> !prev);
     }
 
-    const handleDeleteCategory = async (categoriaId:number) =>{
-        await deleteNotaxCategoria(notaId,categoriaId);
+    const handleDeleteCategory = async (categoryId:number) =>{
+        await deleteNotexCategoria(noteId,categoryId);
         refetchTrigger();
     }
     
@@ -31,13 +31,13 @@ const CategoriaNota = ({notaId, refetchTrigger} : {notaId:number , refetchTrigge
             className="text-white bg-slate-500 rounded-full px-2 py-1 hover:bg-green-500/80 pointer"
             onClick={addCategoryModalHandle}
             >+</button>
-            {categorias && 
-                categorias.map((item)=>{
+            {categories && 
+                categories.map((item)=>{
                     return(
                         <div key={item.id} className="flex text-sm justify-center py-1">
                             <span 
                             className="text-white bg-sky-600 rounded-s-lg px-2"
-                            >{item.nombre}</span>
+                            >{item.name}</span>
                             <button 
                             className="text-white bg-sky-600 rounded-right pointer px-2 hover:bg-red-600/80"
                             onClick={()=> handleDeleteCategory(item.id)}
@@ -51,10 +51,10 @@ const CategoriaNota = ({notaId, refetchTrigger} : {notaId:number , refetchTrigge
 
             }
             {modalAdd && 
-            <ModalCategoria NotaId={notaId} refetchTrigger={refetchTrigger}/>
+            <ModalCategory noteId={noteId} refetchTrigger={refetchTrigger}/>
             }
         </div>
     );
 }
  
-export default CategoriaNota;
+export default CategoriesNotes;

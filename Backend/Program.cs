@@ -16,9 +16,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<HealthService>();
-builder.Services.AddScoped<INotaService, NotaService>();
-builder.Services.AddScoped<ICategoriaService, CategoriaService>();
-builder.Services.AddScoped<INotaCategoriaService, NotaCategoriaService>();
+builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<INoteCategoryService, NoteCategoryService>();
 
 builder.Services.AddCors(options =>
 {

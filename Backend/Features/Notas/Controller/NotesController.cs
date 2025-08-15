@@ -7,10 +7,10 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class NotasController : ControllerBase
+    public class NotesController : ControllerBase
     {
-        private readonly INotaService _service;
-        public NotasController(INotaService service)
+        private readonly INoteService _service;
+        public NotesController(INoteService service)
         {
             _service = service;
         }
@@ -21,16 +21,16 @@ namespace Backend.Controllers
             var notas = await _service.GetAllAsync();
             return Ok(notas);
         }
-        [HttpGet("archivadas/categorias/{id}")]
-        public async Task<IActionResult> GetByCategoriaIdArchived(int id)
+        [HttpGet("filed/category/{id}")]
+        public async Task<IActionResult> GetByCategoryIdFiled(int id)
         {
-            var notas = await _service.GetByCategoriaIdArchivadas(id);
+            var notas = await _service.GetByCategoryIdFiled(id);
             return Ok(notas);
         }
-        [HttpGet("no-archivadas/categorias/{id}")]
-        public async Task<IActionResult> GetByCategoriaIdUnarchived(int id)
+        [HttpGet("unfiled/category/{id}")]
+        public async Task<IActionResult> GetByCategoryIdUnfiled(int id)
         {
-            var notas = await _service.GetByCategoriaIdNoArchivadas(id);
+            var notas = await _service.GetByCategoryIdUnfiled(id);
             return Ok(notas);
         }
         [HttpGet("{id}")]
@@ -41,14 +41,14 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] NotaDTO dto)
+        public async Task<IActionResult> Create([FromBody] NoteDTO dto)
         {
             var created = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] NotaDTO dto)
+        public async Task<IActionResult> Update(int id, [FromBody] NoteDTO dto)
         {
             var updated = await _service.UpdateAsync(id, dto);
             return updated ? Ok("Note update succesful") : NotFound($"Note with id {id}, not found");
@@ -59,18 +59,18 @@ namespace Backend.Controllers
             var deleted = await _service.DeleteAsync(id);
             return deleted ? Ok("Note deleted") : NotFound($"Note id not found, id {id}");
         }
-        [HttpGet("categoria/{categoriaId}")]
-        public async Task<IActionResult> GetByCategoria(int categoriaId)
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetByCategory(int categoryId)
         {
-            var notas = await _service.GetNotasByCategoriaAsync(categoriaId);
-            return Ok(notas);
+            var notes = await _service.GetNotesByCategoryAsync(categoryId);
+            return Ok(notes);
         }
         
-        // notas/buscar?query=texto
-        [HttpGet("buscar")]
+        // notas/search?query=texto
+        [HttpGet("search")]
         public async Task<IActionResult> Buscar([FromQuery] string query)
         {
-            var results = await _service.BuscarNotasAsync(query);
+            var results = await _service.SearchNotesAsync(query);
             return Ok(results);
         }
         [HttpGet("actives")]
@@ -80,18 +80,18 @@ namespace Backend.Controllers
             return Ok(results);
         }
 
-        [HttpGet("archived")]
-        public async Task<IActionResult> GetAllArchived()
+        [HttpGet("filed")]
+        public async Task<IActionResult> GetAllFiled()
         {
-            var results = await _service.GetArchived();
+            var results = await _service.GetFiled();
             return Ok(results);
         }
 
-        [HttpPut("{notaId}/toggle-archivado")]
-        public async Task<IActionResult> ToggleArchivado(int notaId)
+        [HttpPut("{noteId}/toggle-filed")]
+        public async Task<IActionResult> ToggleFiled(int noteId)
         {
-            var result = await _service.ToggleArchivadaAsync(notaId);
-            return result ? Ok("Nota filed updated") : NotFound($"Nota id {notaId} not found");
+            var result = await _service.ToggleFiledAsync(noteId);
+            return result ? Ok("Note filed updated") : NotFound($"Note id {noteId} not found");
         }
     }
 }

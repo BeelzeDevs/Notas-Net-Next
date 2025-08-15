@@ -7,39 +7,35 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class NotaxCategoriaController : ControllerBase
+    public class NotexCategoriesController : ControllerBase
     {
-        private readonly INotaCategoriaService _service;
-        public NotaxCategoriaController(INotaCategoriaService service)
+        private readonly INoteCategoryService _service;
+        public NotexCategoriesController(INoteCategoryService service)
         {
             _service = service;
         }
 
-        [HttpGet("{NotaId}")]
-        public async Task<IActionResult> GetAllCategoriasByNotaId(int NotaId)
+        [HttpGet("{NoteId}")]
+        public async Task<IActionResult> GetAllCategoriesByNotaId(int NoteId)
         {
-            var categorias = await _service.GetAllCategoriasByNotaIdAsync(NotaId);
-            return Ok(categorias);
+            var categories = await _service.GetAllCategoriesByNoteIdAsync(NoteId);
+            return Ok(categories);
         }
 
-        [HttpPost("{NotaId}/add/{CategoriaId}")]
-        public async Task<IActionResult> Create(int NotaId, int CategoriaId)
+        [HttpPost("{NoteId}/add/{CategoryId}")]
+        public async Task<IActionResult> Create(int NoteId, int CategoryId)
         {
-            NotaCategoriaReadDTO? notacategoria = await _service.CreateAsync(NotaId, CategoriaId);
-            return notacategoria is not null ? Ok(notacategoria) : NotFound("Already exist");
+            NotexCategoryReadDTO? notecategory = await _service.CreateAsync(NoteId, CategoryId);
+            return notecategory is not null ? Ok(notecategory) : NotFound("Already exist");
         }
 
-        [HttpDelete("{NotaId}/{CategoriaId}")]
-        public async Task<IActionResult> Delete(int NotaId, int CategoriaId)
+        [HttpDelete("{NoteId}/{CategoryId}")]
+        public async Task<IActionResult> Delete(int NoteId, int CategoryId)
         {
-            var deleted = await _service.DeleteAsync(NotaId, CategoriaId);
-            return deleted ? Ok($"Category deleted from {NotaId}") : NotFound(new
-            {
-                message = $"Category id:{CategoriaId} not found in Nota id:{NotaId}",
-                notaId = NotaId,
-                categoriaId = CategoriaId,
-                errorCode = "CATEGORY_NOT_FOUND"
-            });
+            var deleted = await _service.DeleteAsync(NoteId, CategoryId);
+            return deleted
+            ? Ok($"Category deleted from {NoteId}")
+            : NotFound($"Category id:{CategoryId} not found in Nota id:{NoteId}");
         }
     }
 }

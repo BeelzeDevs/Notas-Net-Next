@@ -1,24 +1,24 @@
 
-CREATE TABLE Notas (
+CREATE TABLE Notes (
     Id SERIAL PRIMARY KEY,
-    Titulo VARCHAR(200) NOT NULL,
-    Contenido TEXT,
-    Archivada BOOLEAN DEFAULT FALSE,
-    FechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FechaModificacion TIMESTAMP
+    Title VARCHAR(200) NOT NULL,
+    Content TEXT,
+    Filed BOOLEAN DEFAULT FALSE,
+    DateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    DateModification TIMESTAMP
 );
 
 
-CREATE TABLE Categorias (
+CREATE TABLE Categories (
     Id SERIAL PRIMARY KEY,
-    Nombre VARCHAR(100) NOT NULL UNIQUE
+    Name VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- NotaXCategorias
-CREATE TABLE NotaCategorias (
-    NotaId INT NOT NULL,
-    CategoriaId INT NOT NULL,
-    PRIMARY KEY (NotaId, CategoriaId),
-    FOREIGN KEY (NotaId) REFERENCES Notas(Id) ON DELETE CASCADE,
-    FOREIGN KEY (CategoriaId) REFERENCES Categorias(Id) ON DELETE CASCADE
+CREATE TABLE NotexCategory (
+    NoteId INT NOT NULL,
+    CategoryId INT NOT NULL,
+    PRIMARY KEY (NoteId, CategoryId),
+    FOREIGN KEY (NoteId) REFERENCES Notes(Id) ON DELETE CASCADE,
+    FOREIGN KEY (CategoryId) REFERENCES Categories(Id) ON DELETE CASCADE
 );

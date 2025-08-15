@@ -1,63 +1,63 @@
-const API_BASE_URL = "http://localhost:5000/api/Notas";
-import { NotaRead } from "@/types/NotaRead";
-import { Nota } from "@/types/Nota";
+const API_BASE_URL = "http://localhost:5000/api/Notes";
+import { NoteRead } from "@/types/NoteRead";
+import { Note } from "@/types/Note";
 
-export async function fetchNotasActivas() : Promise<NotaRead[]> {
+export async function fetchActivesNotes() : Promise<NoteRead[]> {
   const response = await fetch(`${API_BASE_URL}/actives`);
-  if (!response.ok) throw new Error("Error loading Notas");
+  if (!response.ok) throw new Error("Error loading Notes");
   return await response.json();
 }
-export async function fetchNotasPorCategoriaArchivadas(notaId : number) : Promise<NotaRead[]> {
-  const response = await fetch(`${API_BASE_URL}/archivadas/categorias/${notaId}`);
-  if (!response.ok) throw new Error("Error loading Notas by Categoria");
+export async function fetchFiledNotesByCategory(noteId : number) : Promise<NoteRead[]> {
+  const response = await fetch(`${API_BASE_URL}/filed/category/${noteId}`);
+  if (!response.ok) throw new Error("Error loading Notes by Category");
   return await response.json();
 }
-export async function fetchNotasPorCategoriaNoArchivadas(notaId : number) : Promise<NotaRead[]> {
-  const response = await fetch(`${API_BASE_URL}/no-archivadas/categorias/${notaId}`);
-  if (!response.ok) throw new Error("Error loading Notas by Categoria");
-  return await response.json();
-}
-
-export async function fetchNotasArchivadas() : Promise<NotaRead[]> {
-  const response = await fetch(`${API_BASE_URL}/archived`);
-  if (!response.ok) throw new Error("Error loading Notas");
+export async function fetchUnfiledNotesByCategory(noteId : number) : Promise<NoteRead[]> {
+  const response = await fetch(`${API_BASE_URL}/unfiled/category/${noteId}`);
+  if (!response.ok) throw new Error("Error loading Notes by Category");
   return await response.json();
 }
 
-export async function crearNota(nota:Nota) : Promise<NotaRead> {
+export async function fetchNotesFiled() : Promise<NoteRead[]> {
+  const response = await fetch(`${API_BASE_URL}/filed`);
+  if (!response.ok) throw new Error("Error loading Notes");
+  return await response.json();
+}
+
+export async function createNote(note:Note) : Promise<NoteRead> {
   const response = await fetch(API_BASE_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(nota),
+    body: JSON.stringify(note),
   });
 
-  if (!response.ok) throw new Error("Error creating Nota");
+  if (!response.ok) throw new Error("Error creating Note");
   return await response.json();
 }
 
-export async function eliminarNota(id:number){
+export async function deleteNote(id:number){
   const resp = await fetch(`${API_BASE_URL}/${id}`,{
     method:"DELETE",
     headers: {"Content-Type": "application/json"},
   })
-  if(!resp.ok) throw new Error("Error deleting Nota");
+  if(!resp.ok) throw new Error("Error deleting Note");
   return;
 }
-export async function modificarNota(id:number, notaActualizada:Nota){
+export async function updateNote(id:number, updatedNote:Note){
   const resp = await fetch(`${API_BASE_URL}/${id}`,{
     method:"PUT",
     headers: {"Content-Type": "application/json"},
-    body:JSON.stringify(notaActualizada)
+    body:JSON.stringify(updatedNote)
   })
-  if(!resp.ok) throw new Error("Error updating Nota");
+  if(!resp.ok) throw new Error("Error updating Note");
   return;
 }
 
-export async function toogleArchivadoNota(notaId:number){
-  const resp = await fetch(`${API_BASE_URL}/${notaId}/toggle-archivado`,{
+export async function toogleFiledNote(noteId:number){
+  const resp = await fetch(`${API_BASE_URL}/${noteId}/toggle-filed`,{
     method: "PUT",
     headers: {"Content-Type":"application/json"}
   });
-  if(!resp.ok) throw new Error("Error handling Archived/Unarchived Nota");
+  if(!resp.ok) throw new Error("Error handling Filed/UnFiled Toggler Note");
   return;
 }
